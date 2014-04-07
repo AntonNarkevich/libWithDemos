@@ -1,0 +1,2 @@
+/*! 5thfinger.responsive - v1.3 - 2013-09-27 12:28 */
+.rd-drop-down{position:relative;width:30%;height:25px;line-height:25px;background:#fff url(../../img/dropdown-button.jpg) no-repeat 98% center;border:gray solid 1px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding:0 5px}.rd-drop-down>select{margin:0;padding:0;position:absolute;top:0;left:0;height:100%;width:100%;z-index:9999;filter:alpha(opacity=0);opacity:0}.rd-drop-down>.rd-drop-down-text{position:absolute;z-index:9998;height:100%;width:100%}

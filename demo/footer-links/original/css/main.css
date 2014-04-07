@@ -1,0 +1,32 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 76% Arial, Helvetica, Verdana, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.footer nav {
+    float: left;
+    margin: 0 2%;
+    width: 21%;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer ul, .footer li {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.footer li a {
+    color: #0040D0;
+}

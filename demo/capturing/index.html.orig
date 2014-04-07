@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Capturing</title>
+	<script>
+		!function (win, doc, src, callback, checkCondition, runPreprocessing) {
+			checkCondition = checkCondition || checkConditionByDefault;
+			runPreprocessing = runPreprocessing || runPreprocessingByDefault;
+
+			if (true) {
+				doc.write("<plaintext style=\'display:none\'>");
+				setTimeout(function () {
+					win.responsive = {};
+					win.responsive.capturing = true;
+
+					var responsiveScript = doc.createElement("script");
+
+					responsiveScript.onload = function () {
+						if (callback) {
+							var mainScript = doc.createElement("script");
+							var innerHtml = "var rdMain=" + runPreprocessing.toString() + ",rdCallback=" + callback + ";rdMain();setTimeout(function(){rdCallback();});";
+
+							createScript(mainScript, "responsive-executable", "responsive", {innerHTML: innerHtml})
+						}
+					};
+					createScript(responsiveScript, "responsive-js", "responsive", {src: src})
+				});
+			}
+
+			function createScript(scriptElement, elId, elClass, options) {
+				var script = doc.getElementsByTagName("script")[0];
+
+				if (options.src) {
+					scriptElement.src = options.src
+				} else if (options.innerHTML) {
+					scriptElement.innerHTML = options.innerHTML
+				}
+				scriptElement.id = elId;
+				scriptElement.setAttribute("class", elClass);
+				script.parentNode.insertBefore(scriptElement, script);
+			}
+
+			function checkConditionByDefault() {
+				return (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+			}
+
+			function runPreprocessingByDefault() {
+				var capturing = window.responsive && window.responsive.capturing || false;
+				if (capturing) {
+					// Initiate capture
+					RD.initCapture();
+					RD.capture.init(function (capture) {
+						var capturedDoc = capture.capturedDoc;
+						var imgs = capturedDoc.getElementsByTagName("img");
+
+						for (var i = 0; i < imgs.length; i++) {
+							var img = imgs[i];
+							var ogImage = img.getAttribute("x-src");
+							img.setAttribute("x-src", "");
+							img.setAttribute("old-src", ogImage);
+						}
+
+						// Render source DOM to document
+						capture.renderCapturedDoc();
+					});
+				}
+			}
+		}(window, document, "../../js/5thfinger.responsive.js", function () {
+			debugger;
+			responsify.start({
+				clientMapSrc: "responsive/js/clientMap.js",
+				mobileOnly: true
+			});
+
+
+
+//			responsify.start({
+//				clientMapSrc: clientMapSrc,
+//				mobileOnly: true
+//			});
+		});
+
+
+	</script>
+
+
+	<!-- original resources -->
+	<link href="original/css/index.css" rel="stylesheet" type="text/css"/>
+
+	<!--<script src="../../js/5thfinger.responsive.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		responsify.start({
+			clientMapSrc: "responsive/js/clientMap.js",
+			remoteDebug: false,
+			mobileOnly: false
+		});
+	</script>-->
+
+</head>
+<body>
+<h3>
+	Resize window to see slider</h3>
+<ul class="slider">
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/1.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/2.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/3.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/4.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/5.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/6.jpg"/>
+	</a></li>
+	<li><a href="http://google.com" title="image">
+		<img src="original/img/7.jpg"/>
+	</a></li>
+</ul>
+</body>
+</html>

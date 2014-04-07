@@ -1,0 +1,46 @@
+﻿body, html {
+	margin: 0;
+	padding: 0 0 40px;
+}
+
+.test-img, .test-img-popup {
+	max-width: 450px;
+	width: 100%;
+}
+
+.zoom-container {
+	padding: 10px;
+}
+
+.zoom-container p {
+	font-size: 10px;
+}
+
+.zoom-container img {
+	width: 100px;
+	float: left;
+	padding-right: 10px;
+}
+
+/*************************************************************** BASE CSS FOR PHONES  **************************************************************/
+@media screen and (max-width:669px) {
+
+}
+
+/*************************************************************** BASE CSS FOR TABLETS **************************************************************/
+@media screen and (min-width: 670px) {
+
+}
+
+/*************************************************************** CSS FOR PHONES LANDSCAPE **************************************************************/
+@media screen and (min-width:480px) and (max-width:669px) {
+
+}
+
+/*************************************************************** CSS FOR TABLETS LANDSCAPE **************************************************************/
+@media screen and (min-width:1024px) {
+
+}
+
+
+

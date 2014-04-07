@@ -1,0 +1,80 @@
+﻿link#rd-test {
+	visibility: hidden;
+}
+
+body, html {
+	margin: 0;
+	padding: 0 0 40px;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+.galery {
+	clear: left;
+}
+
+.galery-item {
+	display: inline-block;
+	width: 25%;
+	float: left;
+	border: 1px solid #808080;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.galery-item a {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
+
+.galery-item img {
+	width: 100%;
+}
+
+.galery-heading {
+	float: left;
+	margin-top: 0;
+	line-height: 44px;
+	margin-right: 20px;
+}
+
+.start-loading-button {
+	float: left;
+	padding: 10px 20px;
+	border: 1px solid #000;
+	background: #FFF;
+	border-radius: 20px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+/*************************************************************** BASE CSS FOR PHONES  **************************************************************/
+@media screen and (max-width:669px) {
+
+}
+
+/*************************************************************** BASE CSS FOR TABLETS **************************************************************/
+@media screen and (min-width: 670px) {
+
+}
+
+/*************************************************************** CSS FOR PHONES LANDSCAPE **************************************************************/
+@media screen and (min-width:480px) and (max-width:669px) {
+
+}
+
+/*************************************************************** CSS FOR TABLETS LANDSCAPE **************************************************************/
+@media screen and (min-width:1024px) {
+
+}
+
+
+

@@ -1,0 +1,30 @@
+﻿.banner-wrapper img {
+	width: 100%;
+}
+
+.collapse-button {
+	border: 2px solid #C1DA81;
+	padding: 5px 10px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: #E7E8E7;
+	color: #788289;
+	font-size: 18px;
+	font-family: Helvetica, Tahoma, Geneva, sans-serifetica, sans-serif;
+	font-style: italic;
+}
+
+/*************************************************************** BASE CSS FOR PHONES  **************************************************************/
+@media screen and (max-width: 669px) {
+	.collapse-button {
+		display: block;
+	}
+}
+
+/*************************************************************** BASE CSS FOR TABLETS **************************************************************/
+@media screen and (min-width: 670px) {
+	.collapse-button {
+		display: none;
+	}
+}

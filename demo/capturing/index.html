@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Capturing</title>
+	<script>
+		window.isBrowserAllowed = true;
+		if(navigator.userAgent.match(/MSIE/)) {
+			window.isBrowserAllowed = false;
+		}
+	</script>
+
+	<!--[if !IE]><!-->
+	<script>
+		if(/*@cc_on!@*/false) {
+			window.isBrowserAllowed = true;
+		}
+	</script>
+	<!--<![endif]-->
+
+	<script>
+		!function (win, doc, src, clientMapSrc, callback, checkCondition, runPreprocessing) {
+			checkCondition = checkCondition || checkConditionByDefault;
+			runPreprocessing = runPreprocessing || runPreprocessingByDefault;
+
+			if(checkCondition()) {
+				doc.write("<plaintext style='display:none'>");
+				setTimeout(function () {
+					win.responsive = {};
+					win.responsive.capturing = true;
+
+					var responsiveScript = doc.createElement("script");
+
+					responsiveScript.onload = function () {
+						if(callback) {
+							var mainScript = doc.createElement("script");
+							var innerHtml = "var rdMain=" + runPreprocessing + "," +
+									"rdCallback=" + callback + "," +
+									"capturing=window.responsive && window.responsive.capturing || false;" +
+									"rdMain();" +
+									"if(!capturing){setTimeout(function(){rdCallback('" + clientMapSrc + "');}); }";
+
+							createScript(mainScript, "responsive-executable", "responsive", {innerHTML: innerHtml})
+						}
+					};
+					createScript(responsiveScript, "responsive-js", "responsive", {src: src});
+				});
+			} else {
+				setTimeout(function () {
+					var script = doc.getElementsByTagName("script")[0],
+							responsiveScript = doc.createElement("script");
+
+					responsiveScript.src = src;
+					responsiveScript.id = "responsive-js";
+					responsiveScript.setAttribute("class", "responsive");
+					responsiveScript.onload = function () {
+						responsify.start({
+							clientMapSrc: clientMapSrc,
+							mobileOnly: true
+						});
+					};
+
+					script.parentNode.insertBefore(responsiveScript, script);
+				});
+			}
+
+			function createScript(scriptElement, elId, elClass, options) {
+				var script = doc.getElementsByTagName("script")[0];
+
+				if(options.src) {
+					scriptElement.src = options.src
+				} else if(options.innerHTML) {
+					if(navigator.appName == "Microsoft Internet Explorer") {
+						scriptElement.text = options.innerHTML
+					} else {
+						scriptElement.innerHTML = options.innerHTML
+					}
+				}
+				scriptElement.id = elId;
+				scriptElement.setAttribute("class", elClass);
+				script.parentNode.insertBefore(scriptElement, script);
+			}
+
+			function checkConditionByDefault() {
+				return (("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch);
+			}
+
+			function runPreprocessingByDefault() {
+				if(window.responsive && window.responsive.capturing || false) {
+					// Initiate capture
+					RD.initCapture();
+					RD.capture.init(function (capture) {
+						var capturedDoc = capture.capturedDoc;
+						var imgs = capturedDoc.getElementsByTagName("img");
+
+						for(var i = 0; i < imgs.length; i++) {
+							var img = imgs[i];
+							var ogImage = img.getAttribute("x-src");
+							img.setAttribute("x-src", "");
+							img.setAttribute("old-src", ogImage);
+						}
+
+						// Render source DOM to document
+						capture.renderCapturedDoc();
+					});
+				}
+			}
+		}(window, document, "../../js/5thfinger.responsive.js", "responsive/js/clientMap.js",
+				function (clientMapSrc) {
+					RD.eventManager.on("cancelStart", function () {
+						RD.eventManager.on("domReady", function () {
+							var imgs = document.querySelectorAll("img"),
+									mobileImgsSelectors = [
+										".rd-target-tablet img",
+										".rd-target-phone img",
+										"img.rd-target-tablet",
+										"img.rd-target-phone"
+									];
+
+							var mobileImgs = document.querySelectorAll(mobileImgsSelectors.join(","));
+
+							for(var i = 0; i < imgs.length; i++) {
+								var isExists = false,
+										img = imgs[i];
+
+								for(var j = 0; j < mobileImgs.length; j++) {
+									var mobileImg = mobileImgs[j];
+									if(img === mobileImg) {
+										isExists = true;
+										break;
+									}
+								}
+
+								if(!isExists) {
+									var ogImage = img.getAttribute("old-src");
+									if(ogImage) {
+										img.setAttribute("src", ogImage);
+									}
+								}
+							}
+						});
+					});
+
+					responsify.start({
+						clientMapSrc: clientMapSrc,
+						mobileOnly: true
+					});
+				}, function () {
+					var result = true;
+
+					if(!window.isBrowserAllowed) {
+						result = false;
+					}
+
+					return result;
+				});
+	</script>
+
+
+	<!-- original resources -->
+	<link href="original/css/index.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<h3>
+	Resize window to see slider</h3>
+<ul class="slider">
+	<li><a href="#" title="image">
+		<img src="original/img/1.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/2.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/3.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/4.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/5.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/6.jpg"/>
+	</a></li>
+	<li><a href="#" title="image">
+		<img src="original/img/7.jpg"/>
+	</a></li>
+</ul>
+</body>
+</html>
